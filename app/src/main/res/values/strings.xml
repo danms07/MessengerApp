@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MessengerApp</string>
+    <string name="mailPhoneLogin">Access with Mail / Phone</string>
+    <string name="loginTitle">Use your Mail, Phone or Huawei ID to start sending messages</string>
+    <string name="verificationTitle">Verify your identity</string>
+    <string name="mailPhone">Enter your mail/phone</string>
+    <string name="verificationMessage">Input your mail / phone number to send you a verification code</string>
+    <string name="verificationMessage1">Input your verification code</string>
+    <string name="verificationMessage2">Verification code</string>
+    <string name="getCode">Get code</string>
+    <string name="verify">Verify</string>
+    <string name="nickname">Nickname</string>
+    <string name="forceNickname">You must enter a Nickname</string>
+    <string name="profileMessage">Enter or change your nickname so other users will be able to send you messages</string>
+    <string name="validate">Validate</string>
+</resources>
