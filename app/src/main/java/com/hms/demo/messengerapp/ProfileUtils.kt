@@ -17,22 +17,37 @@ import java.net.URL
 class ProfileUtils(private val callback:ProfileCallback) :HQUICClient.HQUICClientListener{
     companion object {
         const val TAG="ProfileUtils"
-        const val PROFILE_URL = "https://qz41hkiav2.execute-api.us-east-2.amazonaws.com/Prod/profile/"
+        const val BASE_URL="https://qz41hkiav2.execute-api.us-east-2.amazonaws.com/Prod/"
+        const val PROFILE_URL = "${BASE_URL}profile/"
         const val NICKNAME_RESOURCE = "nickname/"
+        const val CHAT_USER_URL="${BASE_URL}chat/find-user"
         const val UID = "uid"
         const val NICKNAME="nickname"
         const val CHECK_NICKNAME=200
         const val UPDATE_NICKNAME=300
+        const val FIND_USER=400
     }
 
 
     fun checkNickname(context: Context,uid: String) {
-        Log.e(TAG,"Checking Nickname")
         publishUid(context,uid)
         val apiURL = "$PROFILE_URL?$UID=$uid"
         CoroutineScope(Dispatchers.IO).launch {
             context.let {
                 HQUICClient(it, CHECK_NICKNAME).apply{
+                    listener=this@ProfileUtils
+                    makeRequest(apiURL,"GET")
+                }
+
+            }
+        }
+    }
+
+    fun findUser(context: Context,nickname: String){
+        val apiURL = "$CHAT_USER_URL?$NICKNAME=$nickname"
+        CoroutineScope(Dispatchers.IO).launch {
+            context.let {
+                HQUICClient(it, FIND_USER).apply{
                     listener=this@ProfileUtils
                     makeRequest(apiURL,"GET")
                 }
@@ -51,8 +66,6 @@ class ProfileUtils(private val callback:ProfileCallback) :HQUICClient.HQUICClien
     }
 
     fun updateNickname(context:Context,uid:String,nickname:String){
-        Log.e(TAG,"Updating Nickname")
-        //publishUid(context,uid)
         val url="$PROFILE_URL$NICKNAME_RESOURCE"
         val params=JSONObject().apply {
             put(UID,uid)
@@ -79,10 +92,22 @@ class ProfileUtils(private val callback:ProfileCallback) :HQUICClient.HQUICClien
             CHECK_NICKNAME ->handleNicknameCheck(json)
 
             UPDATE_NICKNAME ->handleNicknameUpdate(json)
+
+            FIND_USER -> handleUserResult(json)
+        }
+    }
+
+    private fun handleUserResult(json: JSONObject) {
+        Log.e(TAG,json.toString())
+        val body=json.getJSONObject("body")
+        when (json.getInt("responseCode")){
+            ProfileCallback.NICKNAME_USED->callback.onNicknameResult(ProfileCallback.NICKNAME_USED,body.getString("nickname"))
+            ProfileCallback.NICKNAME_EMPTY->callback.onNicknameResult(ProfileCallback.NICKNAME_EMPTY,json.toString())
         }
     }
 
     private fun handleNicknameCheck(json:JSONObject){
+        Log.e(TAG,json.toString())
         val body=json.getJSONObject("body")
         if(body.has("nickname")){
             val nickname=body.getString("nickname")

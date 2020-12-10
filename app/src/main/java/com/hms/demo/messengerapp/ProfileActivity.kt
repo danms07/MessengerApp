@@ -17,6 +17,10 @@ class ProfileActivity : AppCompatActivity() ,ProfileViewModel.ProfileNavigator{
         viewModel.loadProfile(this)
         viewModel.navigator=this
         binding.profileVM=viewModel
+        viewModel.liveBitmap.observe(this){
+            binding.imageView2.setImageBitmap(it)
+        }
+
 
     }
 

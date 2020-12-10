@@ -76,6 +76,10 @@ dependencies {
     implementation 'com.huawei.hms:hquic-provider:5.0.0.300'
     implementation 'com.google.android.material:material:1.2.1'
 
+    //ImageKit
+    implementation 'com.huawei.hms:image-render:1.0.3.301'
+    implementation 'com.huawei.hms:image-render-fallback:1.0.3.301'
+
     kapt 'com.android.databinding:compiler:3.1.4'
 
     testImplementation 'junit:junit:4.12'

@@ -13,4 +13,11 @@
     <string name="forceNickname">You must enter a Nickname</string>
     <string name="profileMessage">Enter or change your nickname so other users will be able to send you messages</string>
     <string name="validate">Validate</string>
+    <string name="no_message">You have no conversations</string>
+    <string name="new_chat_title">New Chat</string>
+    <string name="new_chat_text">Enter the Nickname of a user to start the chat</string>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="invalid_nickname">Nickname not found, please check your internet connection or spelling</string>
+    <string name="message">Message</string>
 </resources>
