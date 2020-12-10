@@ -16,7 +16,7 @@ class AccountPushReceiver: BroadcastReceiver(),HQUICClient.HQUICClientListener{
         private const val TAG="Receiver"
         const val PARAM="param"
         const val UID="uid"
-        const val TOKEN="token"
+        const val TOKEN="pushToken"
         const val ACTION="ACTION_REGISTER_USER"
         private const val SERVER="https://qz41hkiav2.execute-api.us-east-2.amazonaws.com/Prod/profile"
     }
